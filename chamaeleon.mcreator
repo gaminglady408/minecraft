@@ -1,0 +1,66 @@
+{
+  "mod_elements": [
+    {
+      "name": "EnderdragonBaby",
+      "type": "livingentity",
+      "sortid": 2,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "enderdragon_baby",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/chamaeleon/client/renderer/EnderdragonBabyRenderer.java",
+          "src/main/java/net/mcreator/chamaeleon/entity/EnderdragonBabyEntity.java",
+          "src/main/resources/assets/chamaeleon/models/item/enderdragon_baby_spawn_egg.json"
+        ]
+      }
+    },
+    {
+      "name": "HerzliKuh",
+      "type": "livingentity",
+      "sortid": 1,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "herzli_kuh",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/chamaeleon/entity/HerzliKuhEntity.java",
+          "src/main/resources/assets/chamaeleon/models/item/herzli_kuh_spawn_egg.json",
+          "src/main/java/net/mcreator/chamaeleon/client/renderer/HerzliKuhRenderer.java"
+        ]
+      }
+    }
+  ],
+  "variable_elements": [],
+  "sound_elements": [],
+  "language_map": {
+    "en_us": {
+      "item.chamaeleon.herzli_kuh_spawn_egg": "Herzli Kuh Spawn Egg",
+      "entity.chamaeleon.herzli_kuh": "Herzli Kuh",
+      "item.chamaeleon.enderdragon_baby_spawn_egg": "Enderdragon Baby Spawn Egg",
+      "entity.chamaeleon.enderdragon_baby": "Enderdragon Baby"
+    }
+  },
+  "foldersRoot": {
+    "name": "~",
+    "children": []
+  },
+  "workspaceSettings": {
+    "modid": "chamaeleon",
+    "modName": "chamaeleon",
+    "version": "1.0.0",
+    "author": "tfrauenknecht, MCreator",
+    "websiteURL": "https://mcreator.net",
+    "license": "Academic Free License v3.0",
+    "disableForgeVersionCheck": true,
+    "serverSideOnly": false,
+    "requiredMods": [],
+    "dependencies": [],
+    "dependants": [],
+    "mcreatorDependencies": [],
+    "currentGenerator": "forge-1.20.1",
+    "modElementsPackage": "net.mcreator.chamaeleon",
+    "lockBaseModFiles": false
+  },
+  "mcreatorVersion": 202300452316
+}
