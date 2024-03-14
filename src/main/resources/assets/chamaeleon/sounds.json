@@ -1,0 +1,13 @@
+{
+	"herzlikuh_death": {
+		"category": "neutral",
+		"subtitle": "herzlikuh_death",
+		"sounds": [
+			{
+				"name": "chamaeleon:herzlikuh_death",
+				"stream": false
+			}
+		]
+	}
+}
+

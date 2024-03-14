@@ -13,40 +13,39 @@
  */
 package net.mcreator.chamaeleon;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-
-import net.minecraftforge.network.simple.SimpleChannel;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.common.MinecraftForge;
-
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.network.FriendlyByteBuf;
-
-import net.mcreator.chamaeleon.init.ChamaeleonModTabs;
-import net.mcreator.chamaeleon.init.ChamaeleonModItems;
-import net.mcreator.chamaeleon.init.ChamaeleonModEntities;
-
-import java.util.function.Supplier;
-import java.util.function.Function;
-import java.util.function.BiConsumer;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.List;
-import java.util.Collection;
-import java.util.ArrayList;
 import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
-@Mod("chamaeleon")
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import net.mcreator.chamaeleon.init.ChamaeleonModEntities;
+import net.mcreator.chamaeleon.init.ChamaeleonModItems;
+import net.mcreator.chamaeleon.init.ChamaeleonModSounds;
+import net.mcreator.chamaeleon.init.ChamaeleonModTabs;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
+
+@Mod(ChamaeleonMod.MODID)
 public class ChamaeleonMod {
 	public static final Logger LOGGER = LogManager.getLogger(ChamaeleonMod.class);
 	public static final String MODID = "chamaeleon";
-
+	
 	public ChamaeleonMod() {
 		MinecraftForge.EVENT_BUS.register(this);
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -56,6 +55,7 @@ public class ChamaeleonMod {
 
 		ChamaeleonModTabs.REGISTRY.register(bus);
 
+		ChamaeleonModSounds.REGISTRY.register(bus);
 	}
 
 	private static final String PROTOCOL_VERSION = "1";

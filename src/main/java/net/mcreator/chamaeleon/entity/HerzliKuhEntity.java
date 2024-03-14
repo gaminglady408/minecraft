@@ -1,32 +1,44 @@
 
 package net.mcreator.chamaeleon.entity;
 
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.network.PlayMessages;
-import net.minecraftforge.network.NetworkHooks;
+import java.util.ArrayList;
+import java.util.List;
 
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.Packet;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import net.mcreator.chamaeleon.ChamaeleonMod;
 import net.mcreator.chamaeleon.init.ChamaeleonModEntities;
+import net.mcreator.chamaeleon.init.ChamaeleonModSounds;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.animal.Cow;
+//import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.network.PlayMessages;
+import net.minecraftforge.registries.ForgeRegistries;
 
-public class HerzliKuhEntity extends PathfinderMob {
+//public class HerzliKuhEntity extends Animal {
+public class HerzliKuhEntity extends Cow {
+	
+	public static final Logger LOGGER = LogManager.getLogger(ChamaeleonMod.class);
+	public static final String MODID = "chamaeleon";
+
 	public HerzliKuhEntity(PlayMessages.SpawnEntity packet, Level world) {
 		this(ChamaeleonModEntities.HERZLI_KUH.get(), world);
 	}
@@ -56,20 +68,38 @@ public class HerzliKuhEntity extends PathfinderMob {
 	public MobType getMobType() {
 		return MobType.UNDEFINED;
 	}
-
-	protected void dropCustomDeathLoot(DamageSource source, int looting, boolean recentlyHitIn) {
-		super.dropCustomDeathLoot(source, looting, recentlyHitIn);
-		this.spawnAtLocation(new ItemStack(Blocks.RED_CANDLE_CAKE));
+	
+	/**
+	 *
+	 */
+	protected void dropCustomDeathLoot(DamageSource source, int looting, boolean hurtbyplayer) {
+		super.dropCustomDeathLoot(source, looting, hurtbyplayer);
+		LOGGER.info("CHECKPOINT::dropCustomDeathLoot:dropping RED_CANDLE_CAKE, GOLD_BLOCK, PINK_CANDLE");
+		
+		List<ItemStack> drops = new ArrayList<ItemStack>();
+		drops.add(new ItemStack(Blocks.RED_CANDLE_CAKE));
+		drops.add(new ItemStack(Blocks.GOLD_BLOCK));
+		drops.add(new ItemStack(Blocks.PINK_CANDLE));
+		drops.forEach(this::spawnAtLocation);
 	}
 
+	
+	/**
+	* Returns the sound this mob makes when it is dead.
+	*/
+	@Override
+	protected SoundEvent getDeathSound()
+	{
+		LOGGER.info("CHECKPOINT::getDeathSound:calling COW_DEATH sound");
+		return ChamaeleonModSounds.COW_DEATH_SOUND.get();
+	}	
+	
 	@Override
 	public SoundEvent getHurtSound(DamageSource ds) {
-		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.generic.hurt"));
-	}
+		LOGGER.info("CHECKPOINT::getDeathSound:calling COW_HURT sound, " + ds);
+		return ChamaeleonModSounds.COW_DEATH_SOUND.get();
 
-	@Override
-	public SoundEvent getDeathSound() {
-		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.generic.death"));
+//		return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("entity.generic.hurt"));
 	}
 
 	public static void init() {
